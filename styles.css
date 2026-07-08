@@ -1,0 +1,193 @@
+:root {
+    --bg-color: #0f172a;
+    --pad-bg: rgba(255, 255, 255, 0.05);
+    --pad-border: rgba(255, 255, 255, 0.1);
+    --pad-active: rgba(56, 189, 248, 0.8);
+    --pad-glow: 0 0 20px rgba(56, 189, 248, 0.5);
+    --pad-loop-active: rgba(236, 72, 153, 0.8);
+    --pad-loop-glow: 0 0 20px rgba(236, 72, 153, 0.5);
+    --text-color: #f8fafc;
+    --stop-bg: rgba(239, 68, 68, 0.8);
+    --stop-glow: 0 0 20px rgba(239, 68, 68, 0.5);
+    --tab-bg: rgba(255, 255, 255, 0.1);
+    --tab-active: rgba(56, 189, 248, 0.8);
+}
+
+* {
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    touch-action: manipulation;
+}
+
+.overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--bg-color);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
+
+.setup-box {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.1);
+    width: 80%;
+    max-width: 400px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 5px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--pad-active);
+    transition: width 0.1s linear;
+}
+
+.setup-btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--tab-bg);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.setup-btn.ready {
+    background: #22c55e;
+    cursor: pointer;
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.tabs-container {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 15px 0;
+    background: var(--tab-bg);
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+    background: var(--tab-active);
+    box-shadow: var(--pad-glow);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 15px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-height: 65vh;
+}
+
+.pad {
+    background: var(--pad-bg);
+    border: 1px solid var(--pad-border);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: all 0.1s ease;
+    backdrop-filter: blur(10px);
+}
+
+.pad.disabled {
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+.pad:active:not(.disabled) {
+    transform: scale(0.95);
+}
+
+.pad.playing {
+    background: var(--pad-active);
+    color: white;
+    box-shadow: var(--pad-glow);
+    border-color: transparent;
+}
+
+.pad.playing.loop {
+    background: var(--pad-loop-active);
+    box-shadow: var(--pad-loop-glow);
+}
+
+.stop-btn {
+    width: 100%;
+    padding: 20px;
+    background: transparent;
+    border: 2px solid rgba(239, 68, 68, 0.5);
+    color: #f8fafc;
+    border-radius: 12px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.stop-btn:active, .stop-btn.active {
+    background: var(--stop-bg);
+    box-shadow: var(--stop-glow);
+    transform: scale(0.98);
+}
